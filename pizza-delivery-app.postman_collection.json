@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstname\": \"string\",\n    \"lastname\": \"string\",\n    \"email\": \"string\",\n    \"streetAddress\": \"string\",\n    \"password\": \"string\",\n    \"tosAgreement\": true\n}",
+							"raw": "{\n    \"firstname\": \"string\",\n    \"lastname\": \"string\",\n    \"email\": \"string\",\n    \"streetAddress\": \"String\",\n    \"password\": \"string\",\n    \"tosAgreement\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,13 +23,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users",
+							"raw": "http://localhost:3000/api/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -43,24 +44,25 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "vo6slmnlsmggtjh5e6ty",
+								"value": "nw4g4hfxxflyy18muy1d",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/users?email=raggetom@gmail.com",
+							"raw": "http://localhost:3000/api/users?email=string",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"users"
 							],
 							"query": [
 								{
 									"key": "email",
-									"value": "raggetom@gmail.com"
+									"value": "string"
 								}
 							]
 						}
@@ -88,13 +90,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users",
+							"raw": "http://localhost:3000/api/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -108,24 +111,25 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "vo6slmnlsmggtjh5e6ty",
+								"value": "voau8waaatn6rfjociyw",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/users?email=raggetom@gmail.com",
+							"raw": "http://localhost:3000/api/users?email=string",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"users"
 							],
 							"query": [
 								{
 									"key": "email",
-									"value": "raggetom@gmail.com"
+									"value": "string"
 								}
 							]
 						}
@@ -152,13 +156,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/tokens",
+							"raw": "http://localhost:3000/api/tokens",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"tokens"
 							]
 						}
@@ -171,19 +176,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/tokens?id=y9stefwx73ljgig13tx2",
+							"raw": "http://localhost:3000/api/tokens?id=string",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"tokens"
 							],
 							"query": [
 								{
 									"key": "id",
-									"value": "y9stefwx73ljgig13tx2"
+									"value": "string"
 								}
 							]
 						}
@@ -205,13 +211,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/tokens",
+							"raw": "http://localhost:3000/api/tokens",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"tokens"
 							]
 						}
@@ -224,19 +231,20 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/tokens?id=y9stefwx73ljgig13tx2",
+							"raw": "http://localhost:3000/api/tokens?id=string",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"tokens"
 							],
 							"query": [
 								{
 									"key": "id",
-									"value": "y9stefwx73ljgig13tx2"
+									"value": "string"
 								}
 							]
 						}
@@ -255,19 +263,52 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "6job3vsv8582y2n8k4nf",
+								"value": "nw4g4hfxxflyy18muy1d",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/menuItems",
+							"raw": "http://localhost:3000/api/menuItems",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"menuItems"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read a specific menu item",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "elns64cygegz2r5ux5hm",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/menuItems?id=string",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"menuItems"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "string"
+								}
 							]
 						}
 					},
@@ -285,7 +326,7 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "6job3vsv8582y2n8k4nf",
+								"value": "elns64cygegz2r5ux5hm",
 								"type": "text"
 							}
 						],
@@ -299,13 +340,49 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/shoppingCart",
+							"raw": "http://localhost:3000/api/shoppingCart",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"shoppingCart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove item from cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "elns64cygegz2r5ux5hm",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"string\",\n    \"menuItemId\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/shoppingCart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
 								"shoppingCart"
 							]
 						}
@@ -338,13 +415,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/orders",
+							"raw": "http://localhost:3000/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"orders"
 							]
 						}

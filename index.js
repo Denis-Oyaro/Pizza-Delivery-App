@@ -30,40 +30,94 @@ const httpServer = http.createServer((req, res) => {
     // Get the payload, if any
     const decoder = new StringDecoder('utf8');
     let buffer = '';
-    req.on('data', (data) => {
+    req.on('data', function (data) {
         buffer += decoder.write(data);
     });
-
-    req.on('end', () => {
+    req.on('end', function () {
         buffer += decoder.end();
 
         // Choose the handler this request should go to. If one is not found, use the notFound handler
-        const chosenHandler = router[trimmedPath] || handlers.notFound;
+        let chosenHandler = router[trimmedPath] || handlers.notFound;
+
+        // If the request is within the public directory, use the public handler instead
+        if (trimmedPath.includes('public/')) {
+            chosenHandler = handlers.public;
+        }
 
         // Construct the data object to send to handler
         const data = { trimmedPath, queryStringObject, method, headers, payload: helpers.parseJsonToObject(buffer) };
 
         // Route the request to the chosen handler
-        chosenHandler(data, function (statusCode, payload) {
+        chosenHandler(data, function (statusCode, payload, contentType) {
+            // Determine the type of response (fallback to JSON)
+            contentType = typeof contentType === 'string' ? contentType : 'json';
+
             // Use the status code called back by the handler, or default to 200
             statusCode = typeof statusCode === 'number' ? statusCode : 200;
 
-            // Use the payload called back by the handler, or default to an empty object
-            payload = typeof payload === 'object' && payload !== null ? payload : {};
+            // Return the response parts that are content specific
+            let payloadStr = '';
+            if (contentType === 'json') {
+                res.setHeader('Content-Type', 'application/json');
 
-            // Convert payload to string
-            const payloadStr = JSON.stringify(payload);
+                // Use the payload called back by the handler, or default to an empty object
+                payload = typeof payload === 'object' && payload !== null ? payload : {};
 
-            // Return the response
-            res.setHeader('Content-Type', 'application/json');
+                // Convert payload to string
+                payloadStr = JSON.stringify(payload);
+            }
+
+            if (contentType === 'html') {
+                res.setHeader('Content-Type', 'text/html');
+
+                // Use the payload called back by the handler, or default to an empty string
+                payloadStr = typeof payload === 'string' ? payload : '';
+            }
+
+            if (contentType === 'favicon') {
+                res.setHeader('Content-Type', 'image/x-icon');
+
+                // Use the payload called back by the handler, or default to an empty string
+                payloadStr = typeof payload !== 'undefined' ? payload : '';
+            }
+
+            if (contentType === 'css') {
+                res.setHeader('Content-Type', 'text/css');
+
+                // Use the payload called back by the handler, or default to an empty string
+                payloadStr = typeof payload !== 'undefined' ? payload : '';
+            }
+
+            if (contentType === 'png') {
+                res.setHeader('Content-Type', 'image/png');
+
+                // Use the payload called back by the handler, or default to an empty string
+                payloadStr = typeof payload !== 'undefined' ? payload : '';
+            }
+
+            if (contentType === 'jpg') {
+                res.setHeader('Content-Type', 'image/jpeg');
+
+                // Use the payload called back by the handler, or default to an empty string
+                payloadStr = typeof payload !== 'undefined' ? payload : '';
+            }
+
+            if (contentType === 'plain') {
+                res.setHeader('Content-Type', 'text/plain');
+
+                // Use the payload called back by the handler, or default to an empty string
+                payloadStr = typeof payload !== 'undefined' ? payload : '';
+            }
+
+            // Return the response parts that are common to all content types
             res.writeHead(statusCode);
             res.end(payloadStr);
 
             // If response status code is 200, log green, otherwise, log red
             if (statusCode === 200) {
-                console.log('\x1b[32m%s\x1b[0m', `${method.toUpperCase()} /${trimmedPath} ${statusCode} ${payloadStr}`);
+                console.log('\x1b[32m%s\x1b[0m', `${method.toUpperCase()} /${trimmedPath} ${statusCode}`);
             } else {
-                console.log('\x1b[31m%s\x1b[0m', `${method.toUpperCase()} /${trimmedPath} ${statusCode} ${payloadStr}`);
+                console.log('\x1b[31m%s\x1b[0m', `${method.toUpperCase()} /${trimmedPath} ${statusCode}`);
             }
         });
     });
@@ -76,9 +130,18 @@ httpServer.listen(config.port, () => {
 
 // Route requests
 router = {
-    users: handlers.users,
-    tokens: handlers.tokens,
-    menuItems: handlers.menuItems,
-    shoppingCart: handlers.shoppingCart,
-    orders: handlers.orders,
+    '': handlers.index,
+    'account/create': handlers.accountCreate,
+    'account/edit': handlers.accountEdit,
+    'account/deleted': handlers.accountDeleted,
+    'session/create': handlers.sessionCreate,
+    'session/deleted': handlers.sessionDeleted,
+    'menuItemsAndShoppingCart/all': handlers.menuItemsAndShoppingCartList,
+    'order/create': handlers.orderCreate,
+    'order/success': handlers.orderSuccess,
+    'api/users': handlers.users,
+    'api/tokens': handlers.tokens,
+    'api/menuItems': handlers.menuItems,
+    'api/shoppingCart': handlers.shoppingCart,
+    'api/orders': handlers.orders,
 };
