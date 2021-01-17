@@ -11,3 +11,6 @@ I have included a postman collection in the zip file (pizza-delivery-app.postman
 
 # Access the Web GUI
 The root of the server ('/') is the landing page for the web GUI.
+
+# Access the Admin CLI 
+Start up the Admin CLI by starting up the app with 'node index'
